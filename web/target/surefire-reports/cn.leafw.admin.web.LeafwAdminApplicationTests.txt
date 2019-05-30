@@ -1,0 +1,11 @@
+-------------------------------------------------------------------------------
+Test set: cn.leafw.admin.web.LeafwAdminApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.474 s <<< FAILURE! - in cn.leafw.admin.web.LeafwAdminApplicationTests
+contextLoads(cn.leafw.admin.web.LeafwAdminApplicationTests)  Time elapsed: 0.003 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration': Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.boot.context.properties.ConfigurationPropertiesBindException: Error creating bean with name 'mybatis-plus-com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties': Could not bind properties to 'MybatisPlusProperties' : prefix=mybatis-plus, ignoreInvalidFields=false, ignoreUnknownFields=true; nested exception is org.springframework.boot.context.properties.bind.BindException: Failed to bind properties under 'mybatis-plus.global-config.sql-injector' to com.baomidou.mybatisplus.core.injector.ISqlInjector
+Caused by: org.springframework.boot.context.properties.ConfigurationPropertiesBindException: Error creating bean with name 'mybatis-plus-com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties': Could not bind properties to 'MybatisPlusProperties' : prefix=mybatis-plus, ignoreInvalidFields=false, ignoreUnknownFields=true; nested exception is org.springframework.boot.context.properties.bind.BindException: Failed to bind properties under 'mybatis-plus.global-config.sql-injector' to com.baomidou.mybatisplus.core.injector.ISqlInjector
+Caused by: org.springframework.boot.context.properties.bind.BindException: Failed to bind properties under 'mybatis-plus.global-config.sql-injector' to com.baomidou.mybatisplus.core.injector.ISqlInjector
+Caused by: org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [java.lang.String] to type [com.baomidou.mybatisplus.core.injector.ISqlInjector]
+
