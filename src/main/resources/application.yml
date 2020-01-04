@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    druid:
+      url: com.mysql.cj.jdbc.Driver
+      initial-size: 20
+      max-active: 200
+      min-idle: 50
+      max-wait: 1000
+      validation-query: SELECT 1 FROM DUAL
+      remove-abandoned: false
+      log-abandoned: true
+      remove-abandoned-timeout-millis: 600
+      test-on-borrow: false
+      test-on-return: false
+  profiles:
+    active: @profileActive@
+mapper:
+  style: camelhump
+  identity: mysql
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  params: pageNum=page;pageSize=size;count=countSql
+security:
+  jwt:
+    ttl: 86400000
+    secret: leafw
+
+wx:
+  appId: wx40d6d497c99443ce
+  appSecret: 8e6c3e6558e51a83e12225046211f22d
+  loginUrl: https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code

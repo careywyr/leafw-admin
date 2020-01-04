@@ -1,0 +1,8 @@
+server:
+  port: 8000
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/leafw_admin?useSSL=false&useUnicode=true&characterEncoding=UTF8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+      username: root
+      password: root10086
