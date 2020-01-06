@@ -31,6 +31,8 @@ public class RoleDO {
      */
     private String roleName;
     private Long orgId;
+    private Long tenantId;
+    private String permissionIds;
     private Integer isdeleted;
     private Long created;
     private String createby;

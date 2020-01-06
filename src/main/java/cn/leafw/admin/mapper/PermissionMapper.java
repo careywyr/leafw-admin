@@ -1,6 +1,6 @@
 package cn.leafw.admin.mapper;
 
-import cn.leafw.admin.model.entity.RoleDO;
+import cn.leafw.admin.model.entity.PermissionDO;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.BaseMapper;
 
@@ -14,8 +14,7 @@ import java.util.List;
  * @author CareyWYR
  * @since 2019-05-30
  */
-public interface RoleMapper extends BaseMapper<RoleDO> {
+public interface PermissionMapper extends BaseMapper<PermissionDO> {
 
-    List<RoleDO> selectByIdIn(@Param("roleIds") List<Long> roleIds);
-
+    List<PermissionDO> selectByIdIn(@Param("permissionIds") List<Long> permissionIds);
 }

@@ -25,6 +25,11 @@ security:
   jwt:
     ttl: 86400000
     secret: leafw
+mybatis:
+  type-aliases-package: cn.leafw.admin
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: /mapper/xml/*.xml
 
 wx:
   appId: wx40d6d497c99443ce

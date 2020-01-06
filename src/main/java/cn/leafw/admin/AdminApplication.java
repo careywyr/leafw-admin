@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import tk.mybatis.spring.annotation.MapperScan;
 
-@MapperScan(basePackages = "cn.leafw.admin")
+@MapperScan(basePackages = "cn.leafw.admin.mapper")
 @SpringBootApplication(scanBasePackages = {"cn.leafw"})
 public class AdminApplication {
 

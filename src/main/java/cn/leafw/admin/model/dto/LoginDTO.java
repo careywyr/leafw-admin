@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 public class LoginDTO {
 
     @NotNull
-    private String email;
+    private String userName;
     @NotNull
     private String password;
 
