@@ -18,4 +18,6 @@ public interface RoleMapper extends BaseMapper<RoleDO> {
 
     List<RoleDO> selectByIdIn(@Param("roleIds") List<Long> roleIds);
 
+    List<RoleDO> selectByName(@Param("roleName") String roleName);
+
 }

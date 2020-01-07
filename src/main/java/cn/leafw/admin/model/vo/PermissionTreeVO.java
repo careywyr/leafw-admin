@@ -21,6 +21,8 @@ public class PermissionTreeVO {
 
     private String permissionKey;
 
+    private Boolean checked;
+
     private Long tenantId;
 
     private Long parentId;

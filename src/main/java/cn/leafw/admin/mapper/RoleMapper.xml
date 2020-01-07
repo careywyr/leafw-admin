@@ -16,4 +16,10 @@
         </foreach>
     </select>
 
+    <select id="selectByName" resultType="cn.leafw.admin.model.entity.RoleDO">
+        select  <include refid="baseSql" />
+        from leafw_role
+        where role_name like CONCAT('%',#{roleName},'%')
+    </select>
+
 </mapper>
