@@ -2,10 +2,13 @@ package cn.leafw.admin.controller;
 
 
 import cn.leafw.admin.model.entity.RoleDO;
+import cn.leafw.admin.model.vo.RoleQueryVO;
+import cn.leafw.admin.model.vo.RoleVO;
 import cn.leafw.admin.service.RoleService;
 import cn.leafw.framework.dto.ResultDTO;
 import cn.leafw.framework.utils.ResultHelper;
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,16 +28,21 @@ public class RoleController {
 
     /**
      * 角色列表
-     * @param roleName roleName
+     * @param roleQueryVO roleQueryVO
      * @param pageNum pageNum
      * @param pageSize pageSize
      * @return 角色列表
      */
-    @GetMapping("/role/list/{pageSize}/{pageNum}")
-    public ResultDTO<Page<RoleDO>> queryRoleList(@RequestParam(name="roleName", required = false) String roleName, @PathVariable("pageNum") Integer pageNum,
-                                                 @PathVariable("pageSize") Integer pageSize){
-        Page<RoleDO> roles = roleService.selectRoleList(pageNum, pageSize, roleName);
+    @PostMapping("/role/list/{pageSize}/{pageNum}")
+    public ResultDTO<PageInfo<RoleVO>> queryRoleList(@RequestBody RoleQueryVO roleQueryVO, @PathVariable("pageNum") Integer pageNum,
+                                                     @PathVariable("pageSize") Integer pageSize){
+        PageInfo<RoleVO> roles = roleService.selectRoleList(pageNum, pageSize, roleQueryVO);
         return ResultHelper.returnOk(roles);
+    }
+
+    @GetMapping("/role/list/all")
+    public ResultDTO queryAllRole(){
+        return ResultHelper.returnOk(roleService.selectAll());
     }
 
     /**

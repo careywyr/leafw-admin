@@ -3,7 +3,7 @@
 <mapper namespace="cn.leafw.admin.mapper.RoleMapper">
 
     <sql id="baseSql">
-        role_id, role_name, permission_ids, org_id, tenant_id, isdeleted, created, createby, updated,updateby
+        role_id, role_name,role_status, permission_ids, org_id, tenant_id, isdeleted, created, createby, updated,updateby
     </sql>
 
     <select id="selectByIdIn" resultType="cn.leafw.admin.model.entity.RoleDO">
@@ -16,10 +16,19 @@
         </foreach>
     </select>
 
-    <select id="selectByName" resultType="cn.leafw.admin.model.entity.RoleDO">
-        select  <include refid="baseSql" />
-        from leafw_role
-        where role_name like CONCAT('%',#{roleName},'%')
+    <select id="selectByOrgAndName" resultType="cn.leafw.admin.model.vo.RoleVO" parameterType="cn.leafw.admin.model.vo.RoleQueryVO">
+        select  r.role_id, r.role_name,r.role_status, r.permission_ids, r.org_id, r.tenant_id, r.isdeleted, r.created,
+        r.createby, r.updated,r.updateby, o.org_name
+        from leafw_role r
+        left join leafw_organization o on o.org_id = r.org_id
+        where 1 = 1
+        <if test="roleName!=null and roleName != ''">
+            and r.role_name like CONCAT('%',#{roleName},'%')
+        </if>
+        <if test="orgId !=null ">
+            and r.org_id = #{orgId}
+        </if>
+        order by updated desc
     </select>
 
 </mapper>

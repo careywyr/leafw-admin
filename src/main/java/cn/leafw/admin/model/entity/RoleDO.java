@@ -30,6 +30,7 @@ public class RoleDO {
      * 角色名称
      */
     private String roleName;
+    private Integer roleStatus;
     private Long orgId;
     private Long tenantId;
     private String permissionIds;

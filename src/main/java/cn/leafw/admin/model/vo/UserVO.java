@@ -1,8 +1,6 @@
-package cn.leafw.admin.model.dto;
+package cn.leafw.admin.model.vo;
 
-import cn.leafw.framework.dto.BaseQueryDTO;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
@@ -14,11 +12,10 @@ import java.io.Serializable;
  * @author CareyWYR
  * @since 2019-05-30
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class UserQueryDto extends BaseQueryDTO {
+public class UserVO {
 
-    private Long id;
+    private Long userId;
     /**
      * 用户名
      */
@@ -31,18 +28,17 @@ public class UserQueryDto extends BaseQueryDTO {
      * 真实姓名
      */
     private String realName;
-    /**
-     * 所属租户
-     */
-    private Long tenantId;
+    private Integer userStatus;
     /**
      * 所属部门
      */
     private Long orgId;
+    private String orgName;
     /**
      * 所属角色列表
      */
     private String roleIds;
+    private String roleNames;
     private Integer isdeleted;
     private Long created;
     private String createby;

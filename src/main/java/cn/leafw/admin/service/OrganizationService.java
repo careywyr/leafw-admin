@@ -9,6 +9,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -35,5 +36,11 @@ public class OrganizationService extends BaseServiceImpl<OrganizationDO> {
         return PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() ->{organizationMapper.selectByName(name);});
     }
 
+    /**
+     * @return List<OrganizationDO>
+     */
+    public List<OrganizationDO> selectOrgList(){
+        return organizationMapper.selectAll();
+    }
 
 }

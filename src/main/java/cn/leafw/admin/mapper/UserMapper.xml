@@ -3,8 +3,30 @@
 <mapper namespace="cn.leafw.admin.mapper.UserMapper">
 
 
-    <select id="selectPermission" resultType="cn.leafw.admin.model.vo.UserPermissionVO">
-        select
+    <select id="selectUserList" resultType="cn.leafw.admin.model.vo.UserVO" parameterType="cn.leafw.admin.model.vo.UserQueryVO">
+        select u.user_id,
+        u.user_name,
+        u.real_name,
+        u.user_status,
+        u.org_id,
+        o.org_name,
+        (select group_concat(r.role_name)
+        from leafw_role r
+        where r.role_id in (select wur.role_id
+        from leafw_user_role wur
+        where wur.user_id = u.user_id
+        )) as roleNames
         from leafw_user u
+        left join leafw_organization o on u.org_id = o.org_id
+        where 1 = 1
+        <if test="orgId != null">
+            and u.org_id = #{orgId}
+        </if>
+        <if test="roleId!=null">
+            and u.user_id  in (select wur.user_id from leafw_user_role wur where wur.role_id = #{roleId})
+        </if>
+        <if test="userName!=null and userName != ''">
+            and u.user_name like concat('%',#{userName}, '%')
+        </if>
     </select>
 </mapper>

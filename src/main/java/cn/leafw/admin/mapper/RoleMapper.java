@@ -1,6 +1,8 @@
 package cn.leafw.admin.mapper;
 
 import cn.leafw.admin.model.entity.RoleDO;
+import cn.leafw.admin.model.vo.RoleQueryVO;
+import cn.leafw.admin.model.vo.RoleVO;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.BaseMapper;
 
@@ -18,6 +20,6 @@ public interface RoleMapper extends BaseMapper<RoleDO> {
 
     List<RoleDO> selectByIdIn(@Param("roleIds") List<Long> roleIds);
 
-    List<RoleDO> selectByName(@Param("roleName") String roleName);
+    List<RoleVO> selectByOrgAndName(RoleQueryVO roleQueryVO);
 
 }

@@ -2,7 +2,11 @@ package cn.leafw.admin.mapper;
 
 import cn.leafw.admin.model.entity.UserDO;
 import cn.leafw.admin.model.vo.UserPermissionVO;
+import cn.leafw.admin.model.vo.UserQueryVO;
+import cn.leafw.admin.model.vo.UserVO;
 import tk.mybatis.mapper.common.BaseMapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,5 +18,5 @@ import tk.mybatis.mapper.common.BaseMapper;
  */
 public interface UserMapper extends BaseMapper<UserDO> {
 
-    UserPermissionVO selectPermission(Long userId);
+    List<UserVO> selectUserList(UserQueryVO userQueryVO);
 }

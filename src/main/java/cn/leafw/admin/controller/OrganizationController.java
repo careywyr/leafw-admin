@@ -39,6 +39,11 @@ public class OrganizationController {
         return ResultHelper.returnOk(organizationDOS);
     }
 
+    @GetMapping("/org/list/all")
+    public ResultDTO queryOrgAll(){
+        return ResultHelper.returnOk(organizationService.selectOrgList());
+    }
+
     /**
      * 删除组织
      * @param orgId orgId

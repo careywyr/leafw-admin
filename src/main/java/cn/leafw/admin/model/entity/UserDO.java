@@ -42,10 +42,6 @@ public class UserDO {
      */
     private String realName;
     /**
-     * 所属租户
-     */
-    private Long tenantId;
-    /**
      * 所属部门
      */
     private Long orgId;
@@ -53,6 +49,7 @@ public class UserDO {
      * 所属角色列表
      */
     private String roleIds;
+    private Integer userStatus;
     private Integer isdeleted;
     private Long created;
     private String createby;

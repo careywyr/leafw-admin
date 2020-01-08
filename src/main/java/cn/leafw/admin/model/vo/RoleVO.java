@@ -25,6 +25,7 @@ public class RoleVO {
      */
     private String roleName;
     private Long orgId;
+    private String orgName;
     private Long tenantId;
     private String permissionIds;
     private Integer isdeleted;

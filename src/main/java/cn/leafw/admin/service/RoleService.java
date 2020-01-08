@@ -4,6 +4,8 @@ import cn.leafw.admin.mapper.RoleMapper;
 import cn.leafw.admin.model.entity.PermissionDO;
 import cn.leafw.admin.model.entity.RoleDO;
 import cn.leafw.admin.model.vo.PermissionTreeVO;
+import cn.leafw.admin.model.vo.RoleQueryVO;
+import cn.leafw.admin.model.vo.RoleVO;
 import cn.leafw.admin.utils.TreeUtil;
 import cn.leafw.framework.base.BaseServiceImpl;
 import cn.leafw.framework.dto.BaseQueryDTO;
@@ -11,6 +13,7 @@ import cn.leafw.framework.exception.BusinessException;
 import cn.leafw.framework.utils.StringUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,7 +40,7 @@ public class RoleService extends BaseServiceImpl<RoleDO> {
     @Autowired
     private PermissionService permissionService;
 
-    public List<RoleDO> selectByIdIn(String[] roleIds){
+    public List<RoleDO> selectByIdIn(List<String> roleIds){
         List<Long> roleIdList = new ArrayList<>();
         for (String roleId : roleIds) {
             roleIdList.add(Long.valueOf(roleId));
@@ -48,13 +51,17 @@ public class RoleService extends BaseServiceImpl<RoleDO> {
 
     /**
      * 查询角色列表
-     * @param pageNum  pageNum
-     * @param pageSize pageSize
-     * @param name roleName
+     * @param roleQueryVO
      * @return Page<RoleDO>
      */
-    public Page<RoleDO> selectRoleList(Integer pageNum, Integer pageSize, String name){
-        return PageHelper.startPage(pageNum, pageSize).doSelectPage(() ->{roleMapper.selectByName(name);});
+    public PageInfo<RoleVO> selectRoleList(Integer pageNum, Integer pageSize, RoleQueryVO roleQueryVO){
+        return PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> {
+            roleMapper.selectByOrgAndName(roleQueryVO);
+        });
+    }
+
+    public List<RoleDO> selectAllRole(){
+        return roleMapper.selectAll();
     }
 
     /**
