@@ -2,7 +2,10 @@ package cn.leafw.admin.service;
 
 import cn.leafw.admin.mapper.PermissionMapper;
 import cn.leafw.admin.model.entity.PermissionDO;
+import cn.leafw.admin.model.vo.PermissionTreeVO;
+import cn.leafw.admin.utils.TreeUtil;
 import cn.leafw.framework.base.BaseServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,10 +25,23 @@ public class PermissionService extends BaseServiceImpl<PermissionDO> {
     @Resource
     private PermissionMapper permissionMapper;
 
-    List<PermissionDO> selectByIdIn(Set<String> permissionIds){
+    public List<PermissionDO> selectByIdIn(Set<String> permissionIds){
         List<Long> permissionsIdList = new ArrayList<>();
         permissionIds.forEach(id -> permissionsIdList.add(Long.valueOf(id)));
         return permissionMapper.selectByIdIn(permissionsIdList);
     }
+
+    public List<PermissionTreeVO> queryPermissionTree(){
+        //todo 这里应该查询当前账号所拥有的权限树
+        List<PermissionDO> allPermissions = this.selectAll();
+        List<PermissionTreeVO> tempTree = new ArrayList<>();
+        for (PermissionDO permission : allPermissions) {
+            PermissionTreeVO permissionTreeVO = new PermissionTreeVO();
+            BeanUtils.copyProperties(permission, permissionTreeVO);
+            tempTree.add(permissionTreeVO);
+        }
+        return TreeUtil.buildByRecursive(tempTree);
+    }
+
 }
 

@@ -48,9 +48,7 @@ public class UserDO {
     /**
      * 所属角色列表
      */
-    private String roleIds;
     private Integer userStatus;
-    private Integer isdeleted;
     private Long created;
     private String createby;
     private Long updated;

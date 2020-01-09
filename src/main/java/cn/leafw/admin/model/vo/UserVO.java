@@ -3,6 +3,7 @@ package cn.leafw.admin.model.vo;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -37,9 +38,8 @@ public class UserVO {
     /**
      * 所属角色列表
      */
-    private String roleIds;
+    private List<String> roleIds;
     private String roleNames;
-    private Integer isdeleted;
     private Long created;
     private String createby;
     private Long updated;

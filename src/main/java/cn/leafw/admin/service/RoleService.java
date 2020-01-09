@@ -93,4 +93,19 @@ public class RoleService extends BaseServiceImpl<RoleDO> {
 
         return TreeUtil.buildByRecursive(tempTree);
     }
+
+    /**
+     * 查询角色详情
+     * @param roleId roleId
+     * @return RoleVO
+     */
+    public RoleVO queryRoleDetail(Long roleId){
+        RoleVO roleVO = new RoleVO();
+        RoleDO roleDO = Optional.ofNullable(this.selectByPrimaryKey(roleId)).orElseThrow(() -> BusinessException.of("角色不存在! roleId="+roleId));
+        BeanUtils.copyProperties(roleDO, roleVO);
+        List<PermissionTreeVO> permissionTree = this.queryRolePermissionTree(roleId);
+        roleVO.setPermissionTree(permissionTree);
+        return roleVO;
+    }
+
 }

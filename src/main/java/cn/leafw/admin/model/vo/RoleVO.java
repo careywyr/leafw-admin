@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import java.util.List;
 
 /**
  * <p>
@@ -33,5 +34,5 @@ public class RoleVO {
     private String createby;
     private Long updated;
     private String updateby;
-
+    private List<PermissionTreeVO> permissionTree;
 }

@@ -27,6 +27,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -93,9 +94,6 @@ public class UserService extends BaseServiceImpl<UserDO> {
         }
         UserPermissionVO  userPermissionVO = new UserPermissionVO();
         UserDO userDO = this.selectByPrimaryKey(userId);
-        if(StringUtils.isEmpty(userDO.getRoleIds())){
-            throw BusinessException.of("用户角色不存在!");
-        }
         userPermissionVO.setUserId(userDO.getUserId());
         userPermissionVO.setUserName(userDO.getUserName());
 
@@ -139,12 +137,13 @@ public class UserService extends BaseServiceImpl<UserDO> {
         }
         UserDO userDO = new UserDO();
         BeanUtils.copyProperties(userVO, userDO);
+        userDO.setPassword(SecureUtil.md5("123456"));
+        userDO.setUserStatus(1);
         userDO.setCreated(System.currentTimeMillis()/1000L);
         userDO.setUpdated(System.currentTimeMillis()/1000L);
         this.insert(userDO);
         // 保存user_role表
-        String[] roleIds = StringUtils.commaDelimitedListToStringArray(userVO.getRoleIds());
-        userRoleService.saveUserRole(roleIds, userDO.getUserId(), userVO.getCreateby());
+        userRoleService.saveUserRole(userVO.getRoleIds(), userDO.getUserId(), userVO.getCreateby());
     }
 
     /**
@@ -164,11 +163,10 @@ public class UserService extends BaseServiceImpl<UserDO> {
         userDO.setUpdated(System.currentTimeMillis()/1000L);
         this.updateByPrimaryKey(userDO);
         // 保存user_role表
-        String[] roleIds = StringUtils.commaDelimitedListToStringArray(userVO.getRoleIds());
         UserRoleDO userRoleDO = new UserRoleDO();
         userRoleDO.setUserId(userVO.getUserId());
         userRoleService.delete(userRoleDO);
-        userRoleService.saveUserRole(roleIds, userDO.getUserId(), userVO.getUpdateby());
+        userRoleService.saveUserRole(userVO.getRoleIds(), userDO.getUserId(), userVO.getUpdateby());
     }
 
 }

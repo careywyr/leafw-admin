@@ -11,6 +11,8 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * <p>
  * 部门 前端控制器
@@ -39,8 +41,12 @@ public class OrganizationController {
         return ResultHelper.returnOk(organizationDOS);
     }
 
+    /**
+     * 所有组织
+     * @return 所有组织
+     */
     @GetMapping("/org/list/all")
-    public ResultDTO queryOrgAll(){
+    public ResultDTO<List<OrganizationDO>> queryOrgAll(){
         return ResultHelper.returnOk(organizationService.selectOrgList());
     }
 

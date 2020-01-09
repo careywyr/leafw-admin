@@ -10,6 +10,7 @@
         u.user_status,
         u.org_id,
         o.org_name,
+        u.updated,
         (select group_concat(r.role_name)
         from leafw_role r
         where r.role_id in (select wur.role_id
@@ -28,5 +29,6 @@
         <if test="userName!=null and userName != ''">
             and u.user_name like concat('%',#{userName}, '%')
         </if>
+        order by u.user_id desc
     </select>
 </mapper>

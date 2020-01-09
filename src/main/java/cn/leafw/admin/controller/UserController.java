@@ -29,11 +29,22 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 获取用户权限
+     * @return UserPermissionVO
+     */
     @GetMapping("/user/permission")
     public ResultDTO<UserPermissionVO> userPermission(){
         return ResultHelper.returnOk(userService.queryUserPermission(UserContext.getUser().getUserId()));
     }
 
+    /**
+     * 查询用户列表
+     * @param userQueryVO  userQueryVO
+     * @param pageNum pageNum
+     * @param pageSize pageSize
+     * @return PageInfo<UserVO>
+     */
     @PostMapping("/user/list/{pageSize}/{pageNum}")
     public ResultDTO<PageInfo<UserVO>> queryUserList(@RequestBody UserQueryVO userQueryVO, @PathVariable("pageNum") Integer pageNum,
                                                      @PathVariable("pageSize") Integer pageSize){
@@ -42,6 +53,11 @@ public class UserController {
         return ResultHelper.returnOk(userService.selectUserList(userQueryVO));
     }
 
+    /**
+     * 修改用户状态
+     * @param userId userId
+     * @return void
+     */
     @GetMapping("/user/valid")
     public ResultDTO changeUserStatus(@RequestParam("userId") Long userId){
         UserDO userDO = userService.selectByPrimaryKey(userId);
@@ -51,6 +67,11 @@ public class UserController {
         return ResultHelper.returnOk(userService.updateByPrimaryKey(userDO));
     }
 
+    /**
+     * 创建账号
+     * @param userVO userVO
+     * @return void
+     */
     @PostMapping("/user")
     public ResultDTO createUser(@RequestBody UserVO userVO){
         userVO.setCreateby(String.valueOf(UserContext.getUser().getUserId()));
@@ -59,11 +80,21 @@ public class UserController {
         return ResultHelper.returnOk(null);
     }
 
+    /**
+     * 更新用户
+     * @param userVO userVO
+     * @return void
+     */
     @PutMapping("/user")
     public ResultDTO updateUser(@RequestBody UserVO userVO){
         userVO.setUpdateby(String.valueOf(UserContext.getUser().getUserId()));
         userService.updateUser(userVO);
         return ResultHelper.returnOk(null);
+    }
+
+    @DeleteMapping("/user")
+    public ResultDTO deleteUser(@RequestParam("userId") Long userId){
+        return ResultHelper.returnOk(userService.deleteByPrimaryKey(userId));
     }
 
 }

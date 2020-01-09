@@ -7,9 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
- * TODO
+ * UserRoleService
  *
  * @author <a href="mailto:wyr95626@95626.cn">CareyWYR</a>
  * @date 2020/1/8
@@ -20,7 +21,7 @@ public class UserRoleService extends BaseServiceImpl<UserRoleDO> {
     @Resource
     private UserRoleMapper userRoleMapper;
 
-    public void saveUserRole(String[] roleIds, Long userId, String createby){
+    public void saveUserRole(List<String> roleIds, Long userId, String createby){
         for (String roleId : roleIds) {
             UserRoleDO userRoleDO = new UserRoleDO();
             userRoleDO.setUserId(userId);
