@@ -116,8 +116,8 @@ public class UserService extends BaseServiceImpl<UserDO> {
             BeanUtils.copyProperties(permission, permissionTreeVO);
             tempTree.add(permissionTreeVO);
         }
-        List<PermissionTreeVO> permissionTree = TreeUtil.buildByRecursive(tempTree);
-        userPermissionVO.setPermissions(permissionTree);
+//        List<PermissionTreeVO> permissionTree = TreeUtil.buildByRecursive(tempTree);
+        userPermissionVO.setPermissions(tempTree);
         redisTemplate.opsForValue().set("PERMISSION_"+userId, userPermissionVO);
         return userPermissionVO;
     }
