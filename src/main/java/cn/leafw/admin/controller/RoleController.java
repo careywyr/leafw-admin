@@ -2,14 +2,17 @@ package cn.leafw.admin.controller;
 
 
 import cn.leafw.admin.model.entity.RoleDO;
+import cn.leafw.admin.model.vo.PermissionTreeVO;
 import cn.leafw.admin.model.vo.RoleQueryVO;
 import cn.leafw.admin.model.vo.RoleVO;
 import cn.leafw.admin.service.PermissionService;
 import cn.leafw.admin.service.RoleService;
 import cn.leafw.framework.dto.ResultDTO;
+import cn.leafw.framework.security.UserContext;
 import cn.leafw.framework.utils.ResultHelper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -75,9 +78,21 @@ public class RoleController {
     }
 
     @GetMapping("/permission/all")
-    public ResultDTO queryPermissionTree(){
+    public ResultDTO<List<PermissionTreeVO>> queryPermissionTree(){
         return ResultHelper.returnOk(permissionService.queryPermissionTree());
     }
 
+
+    @PostMapping("/role")
+    public ResultDTO saveRole(@RequestBody RoleVO roleVO){
+        RoleDO roleDO = new RoleDO();
+        BeanUtils.copyProperties(roleVO, roleDO);
+        roleDO.setCreated(System.currentTimeMillis()/1000L);
+        roleDO.setCreateby(String.valueOf(UserContext.getUser().getUserId()));
+        roleDO.setUpdated(System.currentTimeMillis()/1000L);
+        roleDO.setUpdateby(String.valueOf(UserContext.getUser().getUserId()));
+        roleService.insert(roleDO);
+        return ResultHelper.returnOk(null);
+    }
 }
 
